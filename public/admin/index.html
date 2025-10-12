@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Restaurant Order System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Admin Panel</h1>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </header>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="orders">Orders</button>
+            <button class="tab-btn" data-tab="menu">Menu Items</button>
+            <button class="tab-btn" data-tab="tables">Tables</button>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content active">
+            <h2>Orders Management</h2>
+            <div class="filter-section">
+                <label>Filter by status:</label>
+                <select id="orderStatusFilter">
+                    <option value="all">All Orders</option>
+                    <option value="pending">Pending</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="ready">Ready</option>
+                    <option value="served">Served</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div id="ordersList" class="data-list">
+                <p class="loading">Loading orders...</p>
+            </div>
+        </div>
+
+        <!-- Menu Items Tab -->
+        <div id="menuTab" class="tab-content">
+            <h2>Menu Management</h2>
+            <button id="addMenuItemBtn" class="btn btn-primary">Add Menu Item</button>
+            <div id="menuItemsList" class="data-list">
+                <p class="loading">Loading menu items...</p>
+            </div>
+        </div>
+
+        <!-- Tables Tab -->
+        <div id="tablesTab" class="tab-content">
+            <h2>Tables Management</h2>
+            <button id="addTableBtn" class="btn btn-primary">Add Table</button>
+            <div id="tablesList" class="data-list">
+                <p class="loading">Loading tables...</p>
+            </div>
+        </div>
+
+        <!-- Menu Item Modal -->
+        <div id="menuItemModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="menuItemModalTitle">Add Menu Item</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="menuItemForm">
+                        <input type="hidden" id="menuItemId">
+                        <div class="form-group">
+                            <label for="itemName">Name*:</label>
+                            <input type="text" id="itemName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemDescription">Description*:</label>
+                            <textarea id="itemDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemPrice">Price (kr)*:</label>
+                            <input type="number" id="itemPrice" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemCategory">Category*:</label>
+                            <select id="itemCategory" required>
+                                <option value="">Select category</option>
+                                <option value="appetizer">Appetizer</option>
+                                <option value="main">Main Course</option>
+                                <option value="dessert">Dessert</option>
+                                <option value="beverage">Beverage</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemImage">Image URL:</label>
+                            <input type="text" id="itemImage">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="itemAvailable" checked>
+                                Available
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelMenuItemBtn" class="btn btn-secondary">Cancel</button>
+                    <button id="saveMenuItemBtn" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Modal -->
+        <div id="tableModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="tableModalTitle">Add Table</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="tableForm">
+                        <input type="hidden" id="tableId">
+                        <div class="form-group">
+                            <label for="tableNumber">Table Number*:</label>
+                            <input type="text" id="tableNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tableCapacity">Capacity*:</label>
+                            <input type="number" id="tableCapacity" min="1" max="20" required>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="tableActive" checked>
+                                Active
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelTableBtn" class="btn btn-secondary">Cancel</button>
+                    <button id="saveTableBtn" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Code Modal -->
+        <div id="qrModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>QR Code</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="qrCodeContainer" style="text-align: center;">
+                        <img id="qrCodeImage" src="" alt="QR Code" style="max-width: 100%;">
+                        <p id="qrCodeInfo"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Restaurant Order System</p>
+        </footer>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
